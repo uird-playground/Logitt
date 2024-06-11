@@ -26,7 +26,11 @@
           <a class="text-5xl px-4 mx-auto logo">logitt.</a>
         </div>
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-xl">
-          <form class="space-y-6 w-[350px] max-w-full" action="/" method="GET">
+          <form
+            class="space-y-6 w-[350px] max-w-full"
+            action="<%= route %>"
+            method="GET"
+          >
             <input class="hidden" name="level" value="all" />
             <input class="hidden" name="period" value="week" />
             <input class="hidden" name="keyword" value="" />

@@ -10,14 +10,20 @@ export class Logitt {
   env: string;
   logDir: string;
   trace: boolean = true;
+  private route: string = "/logs";
 
   constructor(config: LogittConfig) {
     this.env = process.env.NODE_ENV || "development";
     this.logDir = path.join(getAppRootDir(), "logs");
     if (config && config.trace != undefined) this.trace = config.trace;
+    if (config && config.route != undefined) {
+      if (config.route[0] != "/") this.route = "/" + config.route;
+      else this.route = config.route;
+    }
     if (this.env === "production" && !fs.existsSync(this.logDir)) {
       fs.mkdirSync(this.logDir);
     }
+    this.render = this.render.bind(this);
   }
 
   private log(
@@ -106,19 +112,20 @@ export class Logitt {
     let query = await parseQuery(req);
     const logsPath = path.join(__dirname, "views", "logs.ejs");
     const loginPath = path.join(__dirname, "views", "login.ejs");
-
     try {
       await userHaveAccess(query);
       const data = await readLogs(query.period, query.level);
       let html = await ejs.renderFile(logsPath, {
         data,
         ...query,
+        route: this.route,
       });
       res.writeHead(200, { "Content-Type": "text/html" });
       res.end(html);
     } catch (error) {
       let html = await ejs.renderFile(loginPath, {
         error: query.username ? error : undefined,
+        route: this.route,
       });
       res.writeHead(200, { "Content-Type": "text/html" });
       res.end(html);

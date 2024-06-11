@@ -17,4 +17,5 @@ declare type Period = "week" | "month" | "all";
 
 declare interface LogittConfig {
   trace: boolean;
+  route: string;
 }
