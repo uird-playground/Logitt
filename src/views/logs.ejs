@@ -1,0 +1,141 @@
+<!-- views/logs.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Logitt | Logs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <style>
+      .logo {
+        font-family: "League Spartan", sans-serif;
+        font-weight: 900;
+        letter-spacing: -2px;
+      }
+    </style>
+    <main class="container mx-auto grow px-8 pt-4 pb-8">
+      <div class="w-full mt-5">
+        <a class="text-3xl w-full logo">logitt.</a>
+      </div>
+      <div class="divider"></div>
+      <form class="grid grid-cols-2 md:grid-cols-4 gap-4" action="/" method="GET">
+        <input
+          type="text"
+          name="username"
+          value="<%= username %>"
+          class="hidden"
+        />
+        <input
+          type="text"
+          name="password"
+          value="<%= password %>"
+          class="hidden"
+        />
+        <select class="select select-bordered w-full max-w-xs" name="level">
+          <option disabled selected>Select Level</option>
+          <option
+            value="all"
+            class="text-black" <%= level == 'all' ? 'selected' : '' %>
+          >
+            All
+          </option>
+          <option
+            value="warn"
+            class="text-warning" <%= level == 'warn' ? 'selected' : '' %>
+          >
+            Warning
+          </option>
+          <option
+            value="error"
+            class="text-error" <%= level == 'error' ? 'selected' : '' %>
+          >
+            Error
+          </option>
+          <option
+            value="debug"
+            class="text-primary" <%= level == 'debug' ? 'selected' : '' %>
+          >
+            Debug
+          </option>
+        </select>
+        <select
+          class="select select-bordered w-full max-w-xs"
+          name="period"
+          defaultValue="week"
+        >
+          <option disabled selected>Select Period</option>
+          <option value="week" <%= period == 'week' ? 'selected' : '' %>>
+            Last 7 days
+          </option>
+          <option value="month" <%= period == 'month' ? 'selected' : '' %>>
+            This month
+          </option>
+          <option value="all" <%= period == 'all' ? 'selected' : '' %>>All</option>
+        </select>
+        <input
+          type="text"
+          name="keyword" readonly
+          placeholder="Search Keyword... (Coming Soon)"
+          value="<%= keyword %>"
+          class="input input-bordered w-full max-w-xs"
+        />
+        <button class="btn btn-success text-white" type="submit">Filter</button>
+      </form>
+      <div class="overflow-x-auto space-y-5 mt-8">
+        <% data.forEach(item => { %>
+        <div class="flex items-center w-full">
+          <div class="badge badge-info badge-sm"></div>
+          <div class="divider flex-grow font-bold"><%= item.date %></div>
+        </div>
+        <% item.logs.forEach(log => { %>
+        <div class="collapse bg-base-200">
+          <input type="radio" name="my-accordion-1" checked="checked" />
+          <div
+            class="collapse-title text-xl font-medium flex flex-col-reverse md:flex-row gap-5 md:justify-between md:items-center !p-6"
+          >
+            <div class="space-x-3">
+              <% if(log.level == "WARN"){ %>
+              <button class="btn btn-warning text-white min-w-[120px]">Warning</button>
+              <% } else if(log.level == "ERROR"){ %>
+              <button class="btn btn-error text-white min-w-[120px]">Error</button>
+              <% } else { %>
+              <button class="btn btn-primary text-white min-w-[120px]">Debug</button>
+              <% } %> <span class="text-[16px]"> <%= log.message %> </span>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-[16px]"><%= log.time %></span>
+              <span class="text-sm text-gray-600"><%= log.date %></span>
+            </div>
+          </div>
+          <% if (log.trace) { %>
+          <div class="collapse-content space-y-4">
+            <div class="space-y-2">
+              <h3 class="font-bold">Trace</h3>
+              <pre class="rounded bg-gray-200 p-4 whitespace-pre-wrap break-all"><%= log.trace.join('\n') %></pre>
+            </div>
+            <% log.meta.forEach(el => { %>
+            <div class="space-y-2">
+              <h3 class="font-bold"><%= el.key %></h3>
+              <pre class="rounded bg-gray-200 p-4 whitespace-pre-wrap break-all"><%= el.value %></pre>
+            </div>
+            <% }) %>
+          </div>
+          <% } %>
+        </div>
+        <% }) %> <% }) %>
+      </div>
+    </main>
+  </body>
+</html>
