@@ -1,7 +1,7 @@
 {
   "name": "logitt",
   "version": "1.0.0",
-  "description": "",
+  "description": "Logitt is a robust NodeJS library designed for efficient log management. It allows you to save logs seamlessly and provides an intuitive interface to explore and analyze them, enhancing your application's monitoring and debugging capabilities.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -9,9 +9,19 @@
     "copyviews": "shx cp -R src/views dist/",
     "build": "npm run clean && tsc && npm run copyviews"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uird-playground/Logitt.git"
+  },
+  "keywords": [
+    "logging",
+    "logs",
+    "nodejs",
+    "typescript",
+    "log-explorer"
+  ],
   "author": "Omar Mokhfi",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/ejs": "^3.1.5",
     "@types/mv": "^2.1.4",
