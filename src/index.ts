@@ -11,7 +11,7 @@ export class Logitt {
   logDir: string;
   trace: boolean;
 
-  constructor({ trace = false }: LogittConfig) {
+  constructor({ trace = true }: LogittConfig) {
     this.env = process.env.NODE_ENV || "development";
     this.logDir = path.join(getAppRootDir(), "logs");
     this.trace = trace;
