@@ -9,12 +9,12 @@ require("dotenv").config();
 export class Logitt {
   env: string;
   logDir: string;
-  trace: boolean;
+  trace: boolean = true;
 
-  constructor({ trace = true }: LogittConfig) {
+  constructor(config: LogittConfig) {
     this.env = process.env.NODE_ENV || "development";
     this.logDir = path.join(getAppRootDir(), "logs");
-    this.trace = trace;
+    if (config && config.trace != undefined) this.trace = config.trace;
     if (this.env === "production" && !fs.existsSync(this.logDir)) {
       fs.mkdirSync(this.logDir);
     }
@@ -110,7 +110,10 @@ export class Logitt {
     try {
       await userHaveAccess(query);
       const data = await readLogs(query.period, query.level);
-      let html = await ejs.renderFile(logsPath, { data, ...query });
+      let html = await ejs.renderFile(logsPath, {
+        data,
+        ...query,
+      });
       res.writeHead(200, { "Content-Type": "text/html" });
       res.end(html);
     } catch (error) {
