@@ -4,7 +4,7 @@ import url from "url";
 
 export const getAppRootDir: () => string = () => {
   let currentDir = __dirname;
-  while (!fs.existsSync(path.join(currentDir, "package.json"))) {
+  while (!fs.existsSync(path.join(currentDir, "node_modules"))) {
     currentDir = path.join(currentDir, "..");
   }
   return currentDir;
