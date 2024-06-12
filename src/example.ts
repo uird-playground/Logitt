@@ -3,7 +3,7 @@ import consola from "consola";
 const { Logitt } = require("./");
 const http = require("http");
 
-const loggy = new Logitt();
+const loggy = Logitt.getLogger();
 
 http.createServer(loggy.render).listen(5000, () => {
   consola.start("Server is running on port " + 5000 + " ...\n");

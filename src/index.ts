@@ -7,12 +7,14 @@ import prependFile from "prepend-file";
 require("dotenv").config();
 
 export class Logitt {
-  env: string;
-  logDir: string;
-  trace: boolean = true;
+  private env: string;
+  private logDir: string;
+  private trace: boolean = true;
   private route: string = "/logs";
 
-  constructor(config: LogittConfig) {
+  private static instance: Logitt;
+
+  private constructor(config?: LogittConfig) {
     this.env = process.env.NODE_ENV || "development";
     this.logDir = path.join(getAppRootDir(), "logs");
     if (config && config.trace != undefined) this.trace = config.trace;
@@ -24,6 +26,13 @@ export class Logitt {
       fs.mkdirSync(this.logDir);
     }
     this.render = this.render.bind(this);
+  }
+
+  public static getLogger(config?: LogittConfig): Logitt {
+    if (!this.instance) {
+      this.instance = new Logitt(config);
+    }
+    return this.instance;
   }
 
   private log(
