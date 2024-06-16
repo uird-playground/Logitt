@@ -22,7 +22,7 @@
     "log-explorer"
   ],
   "author": "Omar Mokhfi",
-  "license": "MIT",
+  "license": "ISC",
   "devDependencies": {
     "@types/ejs": "^3.1.5",
     "@types/mv": "^2.1.4",
