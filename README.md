@@ -1,8 +1,8 @@
 # Logitt
 
-> Logitt is a powerful NodeJS library for efficient log management. It seamlessly saves logs and offers an intuitive interface for exploring and analyzing them, enhancing your application's monitoring and debugging capabilities.
+Logitt is a powerful NodeJS library for efficient log management. It seamlessly saves logs and offers an intuitive interface for exploring and analyzing them, enhancing your application's monitoring and debugging capabilities.
 
----
+![Logs Viewer Preview](https://res.cloudinary.com/dtrcgwkgg/image/upload/v1718570106/Screenshot_2024-06-16_213251_i7duyw.png)
 
 ## Why Choose Logitt?
 
