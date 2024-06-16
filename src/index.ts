@@ -2,8 +2,10 @@ import consola from "consola";
 import fs from "fs";
 import path from "path";
 import ejs from "ejs";
-import { getAppRootDir, parseQuery, readLogs, userHaveAccess } from "./helpers";
+import { getAppRootDir } from "./helpers";
 import prependFile from "prepend-file";
+import { parseQuery, userHaveAccess } from "./helpers/_request-handler";
+import { readLogs } from "./helpers/_logs";
 require("dotenv").config();
 
 export class Logitt {
