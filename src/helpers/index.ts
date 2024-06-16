@@ -15,7 +15,7 @@ export const getAppRootDir: () => string = () => {
   const isRoot = !!jsonContent.dependencies["logitt"];
 
   if (!isRoot) {
-    currentDir = path.join(currentDir, "..");
+    currentDir = path.join(currentDir, "../..");
   }
   return currentDir;
 };

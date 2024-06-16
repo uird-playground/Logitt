@@ -1,13 +1,14 @@
 {
   "name": "logitt",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Logitt is a robust NodeJS library designed for efficient log management. It allows you to save logs seamlessly and provides an intuitive interface to explore and analyze them, enhancing your application's monitoring and debugging capabilities.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rimraf ./dist",
     "copyviews": "shx cp -R src/views dist/",
-    "build": "npm run clean && tsc && npm run copyviews"
+    "build": "npm run clean && tsc && npm run copyviews",
+    "dev": "nodemon ./dist/example.js"
   },
   "repository": {
     "type": "git",
